@@ -1,133 +1,103 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 
-const audioContext = new AudioContext()
-let to
+let ac
+let engine
 let lastNote = 0
+let nextNote = 0
+let beatIndex
+let barLength 
 
 const App = () => {
-  const [ bpm, setBpm ] = useState( 100 )
   const [ isPlaying, setIsPlaying ] = useState( false )
-  const [ beatIndex, setBeatIndex ] = useState( 0 )
+  const [ bpm, setBpm ] = useState( 100 )
+  const [ timeSignatureNumerator, setTimeSignatureNumerator ] = useState( 4 )
 
-  const oneBeatDurationInMs = (bpm) => 60000 / bpm                 /// 60.000 ms = 1 minute
-
-  const scheduleNote = ( audioContext, time ) => {
-    let osc = audioContext.createOscillator()
-    osc.connect( audioContext.destination )
-    osc.start( time )                             
-    osc.stop( time + 1/16 )    
-    if (lastNote === 0 ) osc.frequency.value = '440'
-
-    setBeatIndex( beatIndex + 1 )
-
-    if (beatIndex === 3 ) setBeatIndex(0)
-
-    if (beatIndex === 0 ) {
-      console.log('yeah')
-      osc.frequency.value = '440'
-    } else {
-      console.log('nope')
-      osc.frequency.value = '220'
-    }
-  }
-
-  const handleChangeBPM = ( e ) => setBpm( e.target.value )
-
+  const oneBeatDurationInMs = (bpm) => 60000 / bpm                 // 60.000 ms = 1 minute
   const oneBeatInSeconds = oneBeatDurationInMs( bpm ) / 1000     
-
-  const lookAhead = oneBeatInSeconds / 2                        /// Lookahead looks one beat forward in time
-
-  const timer = () => {
-    const diff = audioContext.currentTime - lastNote            /// audioContext.currentTime starts (in ms) when you load the browser
-    if ( diff >= lookAhead ) {
-      const nextNote = lastNote + oneBeatInSeconds
-      scheduleNote( audioContext, nextNote)
-      lastNote = nextNote
-
-      }
-
-    }
-
-  const start = () => {
-    audioContext.resume()
-    setIsPlaying( true )
-  }
-
-  const stop = () => {
-    clearInterval( to )
-    setIsPlaying( false )
-  }
-
-  const toggle = () => isPlaying ? stop() : start()
+  const lookAhead = oneBeatInSeconds / 2                           // Lookahead looks one beat forward in time
 
   useEffect(() => {
-    if ( isPlaying ) {
+    ac = new AudioContext()
+    barLength = timeSignatureNumerator - 1
+    
+    const sound = ( ac, time ) => {
+      // creates the sound, connects it and decides when it starts and stops
+      let osc = ac.createOscillator()
+      osc.connect( ac.destination )
+      osc.start( time )                             
+      osc.stop( time + 1/16 )    
 
-      clearInterval( to )
-      to = setInterval( timer, oneBeatInSeconds / 4 )           /// Every "beat / 4" setInterval is called to check if everything works.
+      // If is the first beep, plays a higher sound
+      if ( beatIndex  === 0) {
+        osc.frequency.value = '800'
+      } else {
+        osc.frequency.value = '400'
       }
-    },)
 
-  return (
-    <div className='app'>
-      <h1>Metronome</h1>
-      <label htmlFor='beats'>4 / 4</label><br/>
-      <input id='beaats' type='range' min='1' max='20' step='1' value='4' readOnly/><hr/>
+      // If the beat reaches the end, starts over and resets the counter
+      (beatIndex === barLength ) ? beatIndex = 0 : beatIndex = beatIndex + 1      
+    }
+
+    const timer = () => {
+      // calculates how long it was in ms from loading the browser to clicking the play button
+      const diff = ac.currentTime - lastNote
+
+      // schedules the next note if the diff is larger then the setInterval
+      if ( diff >= lookAhead ) {
+        nextNote = lastNote + oneBeatInSeconds
+        lastNote = nextNote
+        sound( ac, nextNote)
+      }
+    }
+
+    if ( isPlaying ){
+      // if the metronome is playing resumes the audio context                       
+      ac.resume()           
+      clearInterval(engine)      
+      engine = setInterval( timer, oneBeatInSeconds / 25.0) 
+    } else {
+      // if the metronome is stopped, resets all the values                               
+      ac.suspend()
+      clearInterval(engine)                 
+      lastNote = 0
+      nextNote = 0
+      beatIndex = 0
+    }
+
+    return () => clearInterval(engine)
+  })
+
+  // if the BPM changes, suspend the context and resets all the values
+  const handleChangeBPM = ( e ) => {
+    ac.suspend()
+    setBpm( e.target.value )
+    lastNote = 0
+    nextNote = 0
+    beatIndex = 0
+    }
+    
+  // if the time signature changes, suspend the context and resets all the values
+  const handleTimeSignatureNumerator = ( e ) => {
+    ac.suspend()
+    setTimeSignatureNumerator( e.target.value )
+    lastNote = 0
+    nextNote = 0
+    beatIndex = 0
+  }
+
+  // By clicking the button starts or stops the metronome
+  const toggleButton = () => ( isPlaying === true ) ? setIsPlaying(false) : setIsPlaying(true)
+
+  return(
+    <div className="App">
+      <label htmlFor='beats'>{ timeSignatureNumerator } / 4</label><br/>
+      <input id='beats' type='range' min='2' max='20' step='1' onChange={ handleTimeSignatureNumerator } value={ timeSignatureNumerator }/><hr/>
       <label htmlFor='bpm'>{ bpm } BPM</label><br/>
-      <input id='bpm' type='range' min='40' max='200' step='1' onChange={ handleChangeBPM}  value={ bpm } /><hr/>
-      <button onClick={ toggle }>{ !isPlaying ? 'Start' : 'Stop' }</button><br />
-      <p>{ beatIndex } beats played</p>
+      <input id='bpm' type='range' min='40' max='200' step='1' onChange={ handleChangeBPM }  value={ bpm } /><hr/>
+      <button onClick={ toggleButton }>{ !isPlaying ? 'Play' : 'Stop'}</button>
     </div>
-  )}
+  )
+}
 
 export default App;
-
-// function App() {
-//   const [ beatIndex, setBeatIndex ] = useState(0)
-//   const [ beatsPlayed, setBeatsPlayed ] = useState(0.0)
-//   const [ timeSignNumerator, setTimeSignNumerator ] = useState(4)
-
-//   /* Fix Vars */
-//   const secondsInOneMinute = 60.0
-//   const timeSignDenominator = 4
-//   const lastBeatIndex = timeSignNumerator - 1
-//   const oneBeatInSeconds = secondsInOneMinute / bpm
-
-//   const nextNote = () => {
-//     setBeatsPlayed( beatsPlayed + oneBeatInSeconds )
-//     setBeatIndex( beatIndex + 1 )
-//     if (beatIndex === lastBeatIndex ) setBeatIndex(0)
-
-//     // console.log('called!')
-//   }
-
-//   const toggleMetronome = () => {
-//     if ( !isPlaying ) {
-//       setIsPlaying(true)
-//       setButtonLabel('Stop')
-//       nextNote()
-//       // console.log('Metronome is playing...')
-//     } else {
-//       setIsPlaying(false)
-//       setButtonLabel('Play')
-//       // console.log('Metronome is NOT playing!')
-//     }
-//   }
-
-//   return (
-//     <div className="App">
-//       <button onClick={() => setTimeSignNumerator( timeSignNumerator + 1 )}>+</button>
-//       <button onClick={() => setTimeSignNumerator( timeSignNumerator - 1 )}>-</button>
-//       <h1>
-//        { timeSignNumerator } / { timeSignDenominator } 
-//       </h1>
-//       <div>{ bpm } BPM</div>
-//       <input onChange={ handleBpm } type="range" min="40" max="200" step="1" value={ bpm }/>
-//       <hr/>
-//       <p>{ beatIndex }</p>
-//       <p>{ beatsPlayed }</p>
-//       <button onClick={ toggleMetronome }>{ buttonLabel }</button>
-//     </div>
-//   );
-// }
