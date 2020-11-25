@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import './App.scss';
+import Button from '@material-ui/core/Button';
 
 let ac
 let engine
@@ -95,7 +96,12 @@ const App = () => {
       <input id='beats' type='range' min='2' max='20' step='1' onChange={ handleTimeSignatureNumerator } value={ timeSignatureNumerator }/><hr/>
       <label htmlFor='bpm'>{ bpm } BPM</label><br/>
       <input id='bpm' type='range' min='40' max='200' step='1' onChange={ handleChangeBPM }  value={ bpm } /><hr/>
-      <button onClick={ toggleButton }>{ !isPlaying ? 'Play' : 'Stop'}</button>
+      <Button 
+        variant="contained" 
+        color="primary"
+        onClick={ toggleButton }>
+        { !isPlaying ? 'Play' : 'Stop'}
+      </Button>
     </div>
   )
 }
