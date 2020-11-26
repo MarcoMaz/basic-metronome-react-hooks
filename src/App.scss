@@ -1,3 +1,17 @@
 .App {
   text-align: center;
+
+  
+}
+
+.metro {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  .beat {
+    background-color: lightgray;
+    height: 20px;
+    margin: 20px;
+    width: 20px;
+  }
 }

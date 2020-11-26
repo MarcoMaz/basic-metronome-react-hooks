@@ -81,7 +81,7 @@ const App = () => {
   // if the time signature changes, suspend the context and resets all the values
   const handleTimeSignatureNumerator = ( e ) => {
     ac.suspend()
-    setTimeSignatureNumerator( e.target.value )
+    setTimeSignatureNumerator( Number(e.target.value) )
     lastNote = 0
     nextNote = 0
     beatIndex = 0
@@ -92,6 +92,11 @@ const App = () => {
 
   return(
     <div className="App">
+      <div className="metro">{
+      [...Array(timeSignatureNumerator)].map((x, i) => (
+      <div key={ i } className='beat'></div>
+      ))}
+      </div><hr/>
       <label htmlFor='beats'>{ timeSignatureNumerator } / 4</label><br/>
       <input id='beats' type='range' min='2' max='20' step='1' onChange={ handleTimeSignatureNumerator } value={ timeSignatureNumerator }/><hr/>
       <label htmlFor='bpm'>{ bpm } BPM</label><br/>
