@@ -7,19 +7,19 @@ let lastNote = 0
 let nextNote = 0
 let beatIndex
 let barLength 
-
 let circles
+const active = '-active'
 
 const App = () => {
   const [ isPlaying, setIsPlaying ] = useState( false )
   const [ bpm, setBpm ] = useState( 100 )
   const [ timeSignatureNumerator, setTimeSignatureNumerator ] = useState( 4 )
 
-  const oneBeatDurationInMs = (bpm) => 60000 / bpm                 // 60.000 ms = 1 minute
+  const oneBeatDurationInMs = (bpm) => 60000 / bpm                // 60.000 ms = 1 minute
   const oneBeatInSeconds = oneBeatDurationInMs( bpm ) / 1000     
-  const lookAhead = oneBeatInSeconds / 2                           // Lookahead looks one beat forward in time
+  const lookAhead = oneBeatInSeconds / 2                          // Lookahead looks one beat forward in time
 
-  circles = document.querySelectorAll('.beat')
+  circles = document.querySelectorAll('.beat')                    // Select all the circles
   
   useEffect(() => {
     ac = new AudioContext()
@@ -38,28 +38,21 @@ const App = () => {
       } else {
         osc.frequency.value = '400'
       }
-      
-      console.log('beatIndex', beatIndex);
-      console.log('circles', circles)
 
-      if ( circles[ beatIndex - 1] !== undefined){
-          circles[ beatIndex - 1 ].classList.remove('aaaa')
+      // remove the previous active class
+      if ( circles[ beatIndex - 1] !== undefined ) {
+        circles[ beatIndex - 1 ].classList.remove(active)
+      } else {
+        circles[ barLength].classList.remove(active)
       }
 
-      console.log(circles[ beatIndex - 1 ]);
-
-      if (Number(circles[beatIndex].dataset.merda) === beatIndex){
-        circles[beatIndex].classList.add('aaaa')
+      // add active class based on index
+      if ( Number( circles[beatIndex].dataset.index ) === beatIndex ) {
+        circles[beatIndex].classList.add(active)
       }
 
       // If the beat reaches the end, starts over and resets the counter
       (beatIndex === barLength ) ? beatIndex = 0 : beatIndex = beatIndex + 1
-      
-      // console.log('circles[beatIndex - 1]', circles[beatIndex - 1])
-      // console.log('circles[beatIndex]', circles[beatIndex])
-      console.log('beatIndex', beatIndex);
-      // console.log('circles', circles)
-      console.log('--->');
     }
 
     const timer = () => {
@@ -112,14 +105,13 @@ const App = () => {
   // By clicking the button starts or stops the metronome
   const toggleButton = () => ( isPlaying === true ) ? setIsPlaying(false) : setIsPlaying(true)
 
-  const myArray = [...Array(timeSignatureNumerator)].map((x, i) => (
-    <div key={ i } data-merda={ i } className='beat'></div>
-    ))
-
   return(
     <div className="App">
       <div className="metro">{
-        myArray
+        [...Array(timeSignatureNumerator)].map((x, i) => (
+          <div key={ i } data-index={ i } 
+          className={ 'beat' + ( isPlaying ? ' beat-plays' : '' )}></div>
+          ))
       }
       </div><hr/>
       <label htmlFor='beats'>{ timeSignatureNumerator } / 4</label><br/>

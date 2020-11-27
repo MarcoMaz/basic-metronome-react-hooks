@@ -1,21 +1,32 @@
 .App {
   text-align: center;
-
-  
 }
 
 .metro {
   align-items: center;
   display: flex;
   justify-content: center;
+
+
   .beat {
     background-color: lightgray;
+    border-radius: 50%;
     height: 20px;
     margin: 20px;
     width: 20px;
 
-    &.dioboia {
-      background-color: blue;
+
+  &:first-child {
+    height: 30px;
+    width: 30px;
+  }
+
+    &-plays {
+      background-color: lightblue;
+
+      &.-active {
+        background-color: darkblue;
+      }
     }
   }
 }
