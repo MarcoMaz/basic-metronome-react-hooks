@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import './App.scss';
-import Button from '@material-ui/core/Button';
 
 let ac
 let engine
@@ -8,6 +7,8 @@ let lastNote = 0
 let nextNote = 0
 let beatIndex
 let barLength 
+
+let circles
 
 const App = () => {
   const [ isPlaying, setIsPlaying ] = useState( false )
@@ -18,6 +19,8 @@ const App = () => {
   const oneBeatInSeconds = oneBeatDurationInMs( bpm ) / 1000     
   const lookAhead = oneBeatInSeconds / 2                           // Lookahead looks one beat forward in time
 
+  circles = document.querySelectorAll('.beat')
+  
   useEffect(() => {
     ac = new AudioContext()
     barLength = timeSignatureNumerator - 1
@@ -36,8 +39,27 @@ const App = () => {
         osc.frequency.value = '400'
       }
       
+      console.log('beatIndex', beatIndex);
+      console.log('circles', circles)
+
+      if ( circles[ beatIndex - 1] !== undefined){
+          circles[ beatIndex - 1 ].classList.remove('aaaa')
+      }
+
+      console.log(circles[ beatIndex - 1 ]);
+
+      if (Number(circles[beatIndex].dataset.merda) === beatIndex){
+        circles[beatIndex].classList.add('aaaa')
+      }
+
       // If the beat reaches the end, starts over and resets the counter
-      (beatIndex === barLength ) ? beatIndex = 0 : beatIndex = beatIndex + 1  
+      (beatIndex === barLength ) ? beatIndex = 0 : beatIndex = beatIndex + 1
+      
+      // console.log('circles[beatIndex - 1]', circles[beatIndex - 1])
+      // console.log('circles[beatIndex]', circles[beatIndex])
+      console.log('beatIndex', beatIndex);
+      // console.log('circles', circles)
+      console.log('--->');
     }
 
     const timer = () => {
@@ -90,23 +112,21 @@ const App = () => {
   // By clicking the button starts or stops the metronome
   const toggleButton = () => ( isPlaying === true ) ? setIsPlaying(false) : setIsPlaying(true)
 
+  const myArray = [...Array(timeSignatureNumerator)].map((x, i) => (
+    <div key={ i } data-merda={ i } className='beat'></div>
+    ))
+
   return(
     <div className="App">
       <div className="metro">{
-      [...Array(timeSignatureNumerator)].map((x, i) => (
-      <div key={ i } className='beat'></div>
-      ))}
+        myArray
+      }
       </div><hr/>
       <label htmlFor='beats'>{ timeSignatureNumerator } / 4</label><br/>
       <input id='beats' type='range' min='2' max='20' step='1' onChange={ handleTimeSignatureNumerator } value={ timeSignatureNumerator }/><hr/>
       <label htmlFor='bpm'>{ bpm } BPM</label><br/>
       <input id='bpm' type='range' min='40' max='200' step='1' onChange={ handleChangeBPM }  value={ bpm } /><hr/>
-      <Button 
-        variant="contained" 
-        color="primary"
-        onClick={ toggleButton }>
-        { !isPlaying ? 'Play' : 'Stop'}
-      </Button>
+      <button onClick={ toggleButton }>{ !isPlaying ? 'Play' : 'Stop'}</button>
     </div>
   )
 }
