@@ -35,9 +35,9 @@ const App = () => {
       } else {
         osc.frequency.value = '400'
       }
-
+      
       // If the beat reaches the end, starts over and resets the counter
-      (beatIndex === barLength ) ? beatIndex = 0 : beatIndex = beatIndex + 1      
+      (beatIndex === barLength ) ? beatIndex = 0 : beatIndex = beatIndex + 1  
     }
 
     const timer = () => {
