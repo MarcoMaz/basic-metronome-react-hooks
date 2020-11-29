@@ -1,27 +1,25 @@
-.App {
+#metronome {
   text-align: center;
 }
 
-.metro {
+.Circles {
   align-items: center;
   display: flex;
   justify-content: center;
 
-
-  .beat {
+  &_beat {
     background-color: lightgray;
     border-radius: 50%;
     height: 20px;
     margin: 20px;
     width: 20px;
+    
+    &:first-child {
+      height: 30px;
+      width: 30px;
+    }
 
-
-  &:first-child {
-    height: 30px;
-    width: 30px;
-  }
-
-    &-plays {
+    &--plays {
       background-color: lightblue;
 
       &.-active {

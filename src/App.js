@@ -19,7 +19,7 @@ const App = () => {
   const lookAhead = oneBeatInSeconds / 2                          // Lookahead looks one beat forward in time
   const active = '-active'
 
-  circles = document.getElementsByClassName('beat')               // Select all the circles
+  circles = document.getElementsByClassName('Circles_beat')               // Select all the circles
 
   useEffect(() => {
     ac = new AudioContext()
@@ -111,19 +111,29 @@ const App = () => {
   const toggleButton = () => ( isPlaying === true ) ? setIsPlaying( false ) : setIsPlaying( true )
 
   return(
-    <div className="App">
-      <div className="metro">{
+    <div id="metronome">
+      <div className="Circles">{
         [...Array(timeSignatureNumerator)].map((x, i) => (
-          <div key={ i } data-index={ i } 
-          className={ 'beat' + ( isPlaying ? ' beat-plays' : '' )}></div>
-          ))
-      }
-      </div><hr/>
-      <label htmlFor='beats'>{ timeSignatureNumerator } / 4</label><br/>
-      <input id='beats' type='range' min='3' max='5' step='1' onChange={ handleTimeSignatureNumerator } value={ timeSignatureNumerator }/><hr/>
-      <label htmlFor='bpm'>{ bpm } BPM</label><br/>
-      <input id='bpm' type='range' min='40' max='200' step='1' onChange={ handleChangeBPM }  value={ bpm } /><hr/>
-      <button onClick={ toggleButton }>{ !isPlaying ? 'Play' : 'Stop'}</button>
+          <div key={ i } data-index={ i } className={ 'Circles_beat' + ( isPlaying ? ' Circles_beat--plays' : '' )}>
+          </div>))}
+      </div>
+      <div className="TimeSignature">
+        <label className="TimeSignature__label" htmlFor='TimeSignature__Input'>
+          <div className="TimeSignature__label__numerator">{ timeSignatureNumerator }</div>
+          <hr className="TimeSignature__label__divider" />
+          <div className="TimeSignature__label__denominator">4</div>
+        </label>
+        <input className="TimeSignature__input" id='TimeSignature__input' 
+          type='range' min='2' max='20' step='1' 
+          onChange={ handleTimeSignatureNumerator } value={ timeSignatureNumerator }/>
+      </div>
+      <div className="Bpm">
+        <label className="Bpm_label" htmlFor='Bpm_input'>{ bpm } BPM</label>
+        <input className="Bpm_input" id='Bpm_input' 
+        type='range' min='40' max='200' step='1' 
+        onChange={ handleChangeBPM } value={ bpm } />
+      </div>
+      <button className="PlayButton" onClick={ toggleButton }>{ !isPlaying ? 'Play' : 'Stop'}</button>
     </div>
   )
 }
