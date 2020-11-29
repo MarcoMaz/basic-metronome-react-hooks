@@ -1,6 +1,6 @@
 {
-  "name": "metronome-react-hooks",
-  "homepage": "https://MarcoMaz.github.io/metronome-react-hooks",
+  "name": "basic-metronome-react-hooks",
+  "homepage": "https://MarcoMaz.github.io/basic-metronome-react-hooks",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
