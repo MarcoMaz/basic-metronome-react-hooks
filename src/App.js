@@ -26,6 +26,18 @@ const App = () => {
     barLength = timeSignatureNumerator - 1
     
     const sound = ( ac, time ) => {
+
+      // Remove the old active class after re-render
+      oldActiveIndex = document.querySelector('.-active')
+      if ( oldActiveIndex !== null ) oldActiveIndex.classList.remove( active )
+
+      // Remove active class from previous beat
+      if ( beatIndex > 0 ){
+        circles[ beatIndex - 1 ].classList.remove( active )
+      } else {
+        circles[ barLength ].classList.remove( active )
+      }
+
       // creates the sound, connects it and decides when it starts and stops
       let osc = ac.createOscillator()
       osc.connect( ac.destination )
@@ -37,17 +49,6 @@ const App = () => {
         osc.frequency.value = '800'
       } else {
         osc.frequency.value = '400'
-      }
-
-      // Remove the old active class after re-render
-      oldActiveIndex = document.querySelector('.-active')
-      if ( oldActiveIndex !== null ) oldActiveIndex.classList.remove( active )
-
-      // Remove active class from previous beat
-      if ( beatIndex > 0 ){
-        circles[ beatIndex - 1 ].classList.remove( active )
-      } else {
-        circles[ barLength ].classList.remove( active )
       }
 
       // Add active class based on index on active beat
