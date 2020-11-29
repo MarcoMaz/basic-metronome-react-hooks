@@ -1,11 +1,24 @@
+body {
+  align-items: center;
+  display: flex;
+  height: 100vh;
+  justify-content: center;
+}
+
 #metronome {
-  text-align: center;
+  align-items: center;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .Circles {
   align-items: center;
+  border: 1px solid red;
   display: flex;
   justify-content: center;
+  margin-bottom: 50px;
 
   &_beat {
     background-color: lightgray;
@@ -28,3 +41,88 @@
     }
   }
 }
+
+.TimeSignature {
+  align-items: center;
+  border: 1px dashed green;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 50px;
+
+  &__label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &__divider {
+      border: 0;
+      border-top: 1px solid black;
+      width: 100%;
+    }
+  }
+}
+
+.Bpm {
+  border: 1px dotted blue;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 50px;
+}
+
+.PlayButton {
+  align-items: center;
+  background-color: red;
+  border: 0;
+  border-radius: 50%;
+  display: flex;
+  height: 50px;
+  justify-content: center;
+  margin-bottom: 50px;
+  width: 50px;
+
+  svg {
+    font-size: 3em;
+    padding-left: 3px;
+  }
+}
+
+
+
+input[type="range"] {
+  -webkit-appearance: none;
+  margin: 20px 0;
+ }
+ 
+ input[type="range"]:focus {
+  outline: none;
+ }
+
+ 
+ input[type="range"]::-webkit-slider-runnable-track {
+  background: tomato;
+  height: 5px;
+ }
+ 
+ input[type="range"]::-moz-range-track {
+  background: tomato;
+  height: 5px;
+ }
+
+ input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 15px;
+  width: 15px;
+  background: pink;
+  margin-top: -5px;
+  border-radius: 50%;
+ }
+ 
+ input[type="range"]::-moz-range-thumb {
+  height: 15px;
+  width: 15px;
+  background: pink;
+  margin-top: -5px;
+  border-radius: 50%;
+ }
+ 
