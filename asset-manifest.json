@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/metronome-react-hooks/static/css/main.46a09eb6.chunk.css",
-    "main.js": "/metronome-react-hooks/static/js/main.e29ae188.chunk.js",
-    "main.js.map": "/metronome-react-hooks/static/js/main.e29ae188.chunk.js.map",
-    "runtime-main.js": "/metronome-react-hooks/static/js/runtime-main.22880c2b.js",
-    "runtime-main.js.map": "/metronome-react-hooks/static/js/runtime-main.22880c2b.js.map",
-    "static/js/2.312a31e9.chunk.js": "/metronome-react-hooks/static/js/2.312a31e9.chunk.js",
-    "static/js/2.312a31e9.chunk.js.map": "/metronome-react-hooks/static/js/2.312a31e9.chunk.js.map",
-    "static/js/3.255016e4.chunk.js": "/metronome-react-hooks/static/js/3.255016e4.chunk.js",
-    "static/js/3.255016e4.chunk.js.map": "/metronome-react-hooks/static/js/3.255016e4.chunk.js.map",
-    "index.html": "/metronome-react-hooks/index.html",
-    "static/css/main.46a09eb6.chunk.css.map": "/metronome-react-hooks/static/css/main.46a09eb6.chunk.css.map",
-    "static/js/2.312a31e9.chunk.js.LICENSE.txt": "/metronome-react-hooks/static/js/2.312a31e9.chunk.js.LICENSE.txt"
+    "main.css": "/basic-metronome-react-hooks/static/css/main.865d4b56.chunk.css",
+    "main.js": "/basic-metronome-react-hooks/static/js/main.ea3f0cad.chunk.js",
+    "main.js.map": "/basic-metronome-react-hooks/static/js/main.ea3f0cad.chunk.js.map",
+    "runtime-main.js": "/basic-metronome-react-hooks/static/js/runtime-main.504e936b.js",
+    "runtime-main.js.map": "/basic-metronome-react-hooks/static/js/runtime-main.504e936b.js.map",
+    "static/js/2.eb2ce774.chunk.js": "/basic-metronome-react-hooks/static/js/2.eb2ce774.chunk.js",
+    "static/js/2.eb2ce774.chunk.js.map": "/basic-metronome-react-hooks/static/js/2.eb2ce774.chunk.js.map",
+    "static/js/3.c2a5cd2e.chunk.js": "/basic-metronome-react-hooks/static/js/3.c2a5cd2e.chunk.js",
+    "static/js/3.c2a5cd2e.chunk.js.map": "/basic-metronome-react-hooks/static/js/3.c2a5cd2e.chunk.js.map",
+    "index.html": "/basic-metronome-react-hooks/index.html",
+    "static/css/main.865d4b56.chunk.css.map": "/basic-metronome-react-hooks/static/css/main.865d4b56.chunk.css.map",
+    "static/js/2.eb2ce774.chunk.js.LICENSE.txt": "/basic-metronome-react-hooks/static/js/2.eb2ce774.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.22880c2b.js",
-    "static/js/2.312a31e9.chunk.js",
-    "static/css/main.46a09eb6.chunk.css",
-    "static/js/main.e29ae188.chunk.js"
+    "static/js/runtime-main.504e936b.js",
+    "static/js/2.eb2ce774.chunk.js",
+    "static/css/main.865d4b56.chunk.css",
+    "static/js/main.ea3f0cad.chunk.js"
   ]
 }
