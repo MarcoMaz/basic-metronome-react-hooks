@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 import './App.scss';
+import { PlayFill } from 'react-bootstrap-icons';
+import { StopFill } from 'react-bootstrap-icons';
 
 let ac
 let engine
@@ -133,7 +135,9 @@ const App = () => {
         type='range' min='40' max='200' step='1' 
         onChange={ handleChangeBPM } value={ bpm } />
       </div>
-      <button className="PlayButton" onClick={ toggleButton }>{ !isPlaying ? 'Play' : 'Stop'}</button>
+      <button className="PlayButton" onClick={ toggleButton }>
+        { !isPlaying ? <PlayFill /> : <StopFill /> }
+      </button>
     </div>
   )
 }
