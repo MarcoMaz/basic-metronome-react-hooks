@@ -19,13 +19,15 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  margin-top: 50px;
 }
 
 .Circles {
   align-items: center;
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
-  margin-bottom: 50px;
+  margin: 50px 0;
 
   &_beat {
     background-color: $inactive;

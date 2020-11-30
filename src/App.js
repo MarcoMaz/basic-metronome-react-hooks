@@ -15,7 +15,7 @@ let oldActiveIndex
 const App = () => {
   const [ isPlaying, setIsPlaying ] = useState( false )
   const [ bpm, setBpm ] = useState( 100 )
-  const [ timeSignatureNumerator, setTimeSignatureNumerator ] = useState( 4 )
+  const [ timeSignatureNumerator, setTimeSignatureNumerator ] = useState( 10 )
   const oneBeatDurationInMs = (bpm) => 60000 / bpm                // 60.000 ms = 1 minute
   const oneBeatInSeconds = oneBeatDurationInMs( bpm ) / 1000     
   const lookAhead = oneBeatInSeconds / 2                          // Lookahead looks one beat forward in time
