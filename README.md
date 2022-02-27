@@ -1,13 +1,24 @@
-# Simple Metronome with React Hooks
-Basic metronome built with React 17, Sass, Bootstrap Icons and the Web Audio API.
+# Basic Metronome with React Hooks
+[Live Demo](https://marcomaz.github.io/basic-metronome-react-hooks)
 
-### How to get the metronome up and running
+## Description
+
+Basic metronome with tempo and time signature customization.
+
+## Technologies used
+
+- React 17
+- Scss
+- Bootstrap Icons
+- Web Audio API
+
+## Installation
 1. Clone the repo
-` git clone https://github.com/MarcoMaz/basic-metronome-react-hooks.git`
-2. Install all the dependencies
+`git clone https://github.com/MarcoMaz/basic-metronome-react-hooks.git`
+2. Install the dependencies
 `npm install`
 3. Run the metronome
 `npm start`
 
-### Demo
-[here](https://marcomaz.github.io/basic-metronome-react-hooks "here")
+## Screenshot
+![alt text](https://raw.githubusercontent.com/MarcoMaz/images/main/image__basic-metronome-react-hooks.png)
