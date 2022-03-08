@@ -1,12 +1,11 @@
 {
-  "short_name": "Basic Metronome",
-  "name": "Basic Metronome",
+	"short_name": "PWA Metronome",
+  "name": "PWA Metronome",
   "icons": [
     {
       "src": "android-chrome-192x192.png",
       "type": "image/png",
-      "sizes": "192x192",
-			"purpose": "any maskable"
+      "sizes": "192x192"
     },
     {
       "src": "android-chrome-512x512.png",
@@ -15,6 +14,7 @@
     }
   ],
   "start_url": ".",
+	"id": "/",
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff"
