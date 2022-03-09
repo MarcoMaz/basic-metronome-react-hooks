@@ -1,20 +1,20 @@
 {
-	"short_name": "PWA Metronome",
-  "name": "PWA Metronome",
+  "short_name": "Simple Metronome",
+  "name": "Simple Metronome",
   "icons": [
     {
-      "src": "android-chrome-192x192.png",
-      "type": "image/png",
-      "sizes": "192x192"
+      "src": "android-chrome_192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
     },
     {
-      "src": "android-chrome-512x512.png",
-      "type": "image/png",
-      "sizes": "512x512"
+      "src": "android-chrome_512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
     }
-  ],
+  ], 
   "start_url": ".",
-	"id": "/",
+	"id": "/basic-metronome-react-hooks/",
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff"
