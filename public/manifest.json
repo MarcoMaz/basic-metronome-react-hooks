@@ -13,8 +13,7 @@
       "sizes": "512x512"
     }
   ],
-  "start_url": "https://marcomaz.github.io/basic-metronome-react-hooks/",
-  "scope": "https://marcomaz.github.io/basic-metronome-react-hooks/",
+  "start_url": ".",
 	"id": "/",
   "display": "standalone",
   "theme_color": "#000000",
